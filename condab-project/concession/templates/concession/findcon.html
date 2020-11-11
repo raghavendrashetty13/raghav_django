@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+  <title>find Con</title>
+
+  <form method="post" class='form-inline'>
+      {% csrf_token %}
+    <input type="Text" name="Conc" value=""class="form-control form-control-sm" placeholder="contains...">
+    &ensp; <input type="Submit" name="findcon" class="btn btn-info btn-sm" value="findcon">
+  </form>
+<br>
+  <table class="table table-sm table-striped table-bordered ">
+    <thead>
+       <tr class='text-center' style="background-color:grey;">
+         <th>Con Number</th>
+         <th>Part</th>
+         <th>Quantity</th>
+         <th>Decision</th>
+         <th>Indate</th>
+         <th>Outdate</th>
+         <th>User</th>
+       </tr>
+      <thead>
+
+        <tbody>
+          {% for Concession in Concessions %}
+          <tr class='text-center'>
+            <td><a href="{% url 'detail' Concession.pk %}">{{Concession.Conc_Number}}</a></td>
+            <td><a href="{% url 'database' %}">{{Concession.partnumber}}</a></td>
+            <td>{{Concession.Quantity}}</td>
+            <td>{{Concession.Decision}}</td>
+            <td>{{Concession.Indate|date:"d-m-Y"}}</td>
+            <td>{{Concession.Outdate|date:"d-m-Y"}}</td>
+            <td>{{Concession.User.username}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
